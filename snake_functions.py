@@ -38,9 +38,18 @@ class Game:
         self.score = 0
         self.snake.spawn()
         self.food.spawn()
+        self.snake.draw(self.game_matrix, self.snake_number)
+        self.food.draw(self.game_matrix, self.food_number)
         print("Game resetting")
 
     def game_frame(self, direction=0, print_mode=1):
+        if abs(self.snake.dir - direction) != 2:
+            self.snake.dir = direction
+        self.snake.move()
+
+        if self.snake.hit_border() or self.snake.hit_snake():
+            self.reset_game()
+
         self.draw_game_field()
         self.food.draw(self.game_matrix, self.food_number)
         self.snake.draw(self.game_matrix, self.snake_number)
@@ -50,10 +59,6 @@ class Game:
         elif print_mode == 1:
             self.print_score()
 
-        self.snake.dir = direction
-        self.snake.move()
-        if self.snake.hit_border(self.game_matrix, self.border_number):
-            self.reset_game()
         self.score = self.snake.eats(self.score, self.food)
 
     def print_score(self):
@@ -131,8 +136,15 @@ class Snake:
         for i in range(self.length):
             matrix[self.pos[i][0]][self.pos[i][1]] = snake_numb
 
-    def hit_border(self, matrix, border_number):
-        if matrix[self.pos[0][0]][self.pos[0][1]] == border_number:
+    def hit_border(self):
+        if self.pos[0][0] == 0 or self.pos[0][1] == 0 or self.pos[0][0] == self.y - 1 or self.pos[0][1] == self.x - 1:
             return True
         else:
             return False
+
+    def hit_snake(self):
+        for i in range(1, self.length):
+            if self.pos[0] == self.pos[i]:
+                return True
+        return False
+
