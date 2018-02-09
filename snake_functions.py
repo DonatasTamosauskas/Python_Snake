@@ -1,4 +1,5 @@
 from random import randint
+from numpy import array
 
 
 class Game:
@@ -11,6 +12,7 @@ class Game:
         self.snake_number = snake_number
         self.food_number = food_number
         self.score = 0
+        self.game_over = False
 
         self.game_matrix = [[0 for _ in range(self.y)] for _ in range(self.x)]
         self.snake = Snake(x, y, init_snake_length)
@@ -33,14 +35,16 @@ class Game:
             for j in range(self.y):
                 self.game_matrix[i][j] = 0
 
-    def reset_game(self):
+    def reset(self):
         self.draw_game_field()
         self.score = 0
+        self.game_over = False
         self.snake.spawn()
         self.food.spawn()
         self.snake.draw(self.game_matrix, self.snake_number)
         self.food.draw(self.game_matrix, self.food_number)
-        print("Game resetting")
+        self.snake.dir = 0
+        # print("Game resetting")
 
     def game_frame(self, direction=0, print_mode=1):
         if abs(self.snake.dir - direction) != 2:
@@ -48,7 +52,7 @@ class Game:
         self.snake.move()
 
         if self.snake.hit_border() or self.snake.hit_snake():
-            self.reset_game()
+            self.reset()
 
         self.draw_game_field()
         self.food.draw(self.game_matrix, self.food_number)
@@ -60,6 +64,7 @@ class Game:
             self.print_score()
 
         self.score = self.snake.eats(self.score, self.food)
+        return self.game_matrix
 
     def print_score(self):
         print("Score is: " + str(self.score) + "\n")
@@ -68,6 +73,43 @@ class Game:
         for i in range(self.x):
             print(self.game_matrix[i])
         self.print_score()
+
+    # Adaptation functions for agent.py
+
+    def get_frame(self):
+        return array(self.game_matrix)
+
+    def play(self, direction):
+        if abs(self.snake.dir - direction) != 2:
+            self.snake.dir = direction
+        self.snake.move()
+
+        if self.snake.hit_border() or self.snake.hit_snake():
+            self.game_over = True
+            self.score = -1
+            # print("Game over")
+        else:
+            self.score = self.snake.eats(self.score, self.food)
+
+        self.draw_game_field()
+        self.food.draw(self.game_matrix, self.food_number)
+        self.snake.draw(self.game_matrix, self.snake_number)
+
+    def get_score(self):
+        return self.score
+
+    def is_over(self):
+        return self.game_over
+
+    def is_won(self):
+        if self.snake.length > self.init_snake_length:
+            return True
+        else:
+            return False
+
+    @property
+    def nb_actions(self):
+        return 4
 
 
 class Food:

@@ -37,6 +37,7 @@ class Graphics:
                 elif game_matrix[i][j] == self.food_numb:
                     pg.draw.rect(self.game_display, dark_grey, [i * self.size_x, j * self.size_y, self.size_x, self.size_y])
 
+        pg.event.get()
         pg.display.update()
         self.clock.tick(self.framerate)
 
