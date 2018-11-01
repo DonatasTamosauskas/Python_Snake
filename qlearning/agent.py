@@ -159,7 +159,7 @@ class Agent:
                 q = model.predict(S)
                 a = int(np.argmax(q[0]))
                 print("The action: {}".format(a))
-                graphics.display_frame(game.game_matrix)
+                graphics.display_frame(game.get_frame())
                 r = game.get_score()
                 game.play(a)
                 r1 = game.get_score()

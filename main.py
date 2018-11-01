@@ -2,7 +2,7 @@ from keras.models import Sequential
 from keras.layers import *
 from keras.optimizers import *
 
-from snake_functions import Game
+from game_engine.snake_functions_old import Game
 from graphics.pygame_graphics import PygameGraphics
 from qlearning.agent import Agent
 
