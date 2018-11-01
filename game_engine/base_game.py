@@ -1,7 +1,7 @@
 class BaseGame:
 
     def __init__(self):
-        nb_actions = 4
+        self.nb_actions = 4
 
     def get_frame(self):
         """Method return array of how the current game board looks."""
@@ -20,7 +20,7 @@ class BaseGame:
         pass
 
     def is_won(self):
-        """Method returns boolean whether game is currently lost."""
+        """Method returns boolean whether game is currently won."""
         pass
 
     def reset(self):
