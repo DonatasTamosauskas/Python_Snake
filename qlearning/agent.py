@@ -1,6 +1,6 @@
 # Most of the code taken from https://github.com/farizrahman4u/qlearning4k
 
-from memory import ExperienceReplay
+from qlearning.memory import ExperienceReplay
 import numpy as np
 
 

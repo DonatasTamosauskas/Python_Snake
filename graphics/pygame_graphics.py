@@ -6,7 +6,7 @@ dark_grey = (70, 70, 70)
 black = (0, 0, 0)
 
 
-class Graphics:
+class PygameGraphics:
 
     def __init__(self, x, y, snake_number, food_number, border_number
                  , resolution=(480, 480), framerate=5):

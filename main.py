@@ -1,10 +1,10 @@
-from snake_functions import Game
-from graphics_functions import Graphics
-from agent import Agent
-
 from keras.models import Sequential
 from keras.layers import *
 from keras.optimizers import *
+
+from snake_functions import Game
+from graphics.pygame_graphics import PygameGraphics
+from qlearning.agent import Agent
 
 x = 10
 y = 10
@@ -34,17 +34,17 @@ def main():
     model.add(Dense(4))  # actions number
     model.compile(RMSprop(), 'MSE')
 
-    model.load_weights('my_weights.dat')
+    model.load_weights('ModelWeights/my_weights.dat')
 
     game = Game(x, y, init_snake_length, snake_number, food_number, border_number)
     agent = Agent(model=model, memory_size=-1, nb_frames=4)
 
     # Modes: display - True, training - False.
     if True:
-        graphics = Graphics(x, y, snake_number, food_number, border_number, framerate=15)
+        graphics = PygameGraphics(x, y, snake_number, food_number, border_number, framerate=15)
         agent.play_graphics(game, graphics, nb_epoch=10, nb_loops=60)
     else:
-        agent.train(game, batch_size=64, nb_epoch=100, gamma=0.8, observe=0, checkpoint=None)
+        agent.train(game, batch_size=64, nb_epoch=10, gamma=0.8, observe=0, checkpoint=None)
 
 
 if __name__ == "__main__":
