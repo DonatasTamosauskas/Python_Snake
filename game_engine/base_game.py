@@ -1,5 +1,7 @@
 class BaseGame:
-    nb_actions = 4
+
+    def __init__(self):
+        nb_actions = 4
 
     def get_frame(self):
         """Method return array of how the current game board looks."""

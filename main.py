@@ -5,6 +5,7 @@ from keras.optimizers import *
 from game_engine.snake_functions_old import Game
 from graphics.pygame_graphics import PygameGraphics
 from qlearning.agent import Agent
+from game_engine.speed_testing import SpeedTest
 
 x = 10
 y = 10
@@ -49,3 +50,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    # print(SpeedTest.snake_old_function_speed())
