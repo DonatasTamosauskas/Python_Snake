@@ -138,9 +138,9 @@ class Snake:
         self.length = init_length
         self.dir = 0
         """
-          0
-        3   1
-          2
+          3
+        2   0
+          1
         """
         self.pos = [[0 for _ in range(2)] for _ in range(20)]
 
