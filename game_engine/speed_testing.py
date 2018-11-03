@@ -18,7 +18,7 @@ class SpeedTest:
         self.food_number = 0.4
         seed(0)
 
-    def plot_differences(self, max_x=50, step=2, loop_times=1000):
+    def plot_differences(self, max_x=50, step=2, loop_times=1000, save_plot=False, filename="plot.png"):
         old_results, new_results = self.compare_different_game_engines(max_x=max_x, step=step, loop_times=loop_times)
 
         plt.xticks(range(len(old_results.keys())), old_results.keys())
@@ -29,7 +29,12 @@ class SpeedTest:
         plt.ylabel("Time (s) to play {} games".format(loop_times))
         plt.title("Old snake game vs new engine speed")
         plt.legend()
-        plt.show()
+
+        if save_plot:
+            plt.savefig(filename, bbox_inches='tight')
+            plt.show()
+        else:
+            plt.show()
 
     def compare_different_game_engines(self, max_x=50, step=2, loop_times=1000):
         snake_functions_old_speed = {}
