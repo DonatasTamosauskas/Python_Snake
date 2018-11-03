@@ -37,8 +37,8 @@ if __name__ == "__main__":
     snake_numpy = SnakeGameNumpy(x, y, init_snake_length, snake_number, food_number, border_number)
     snake_old = Game(x, y, init_snake_length, snake_number, food_number, border_number)
 
-    # print(SpeedTest.snake_old_function_speed())
-    print(SpeedTest.snake_game_numpy_speed())
+    print("Old game engine took: {}".format(SpeedTest.snake_old_function_speed())) # 135.84458488
+    print("New game engine took: {}".format(SpeedTest.snake_game_numpy_speed())) # 635.03579096
 
     # graphics = PygameGraphics(x, y, snake_number, food_number, border_number, framerate=5)
 
