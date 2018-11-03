@@ -64,6 +64,7 @@ class SnakeGameNumpy(BaseGame):
         """Method ends the current game and starts a new one."""
         self.score = 0
         self.game_is_over = False
+        self.last_move = 2
         self.snake = self.__create_snake(self.x, self.y, self.init_snake_length)
         self.food = self.__spawn_food(self.x, self.y)
 
@@ -149,9 +150,9 @@ class SnakeGameNumpy(BaseGame):
     def __snake_has_died(snake, x, y):
         if snake.min() < 1:
             return True
-        if snake[0, 0] > (x - 1):
+        if snake[0, 0] > (x - 2):
             return True
-        if snake[0, 1] > (y - 1):
+        if snake[0, 1] > (y - 2):
             return True
         if np.unique(snake, axis=0, return_counts=True)[1].max() > 1:
             return True
