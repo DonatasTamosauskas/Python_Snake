@@ -12,7 +12,7 @@ The difference in performance between the two approaches can be seen in examples
 ![](images/high_pixel_count.png?raw=true)
 
 To no one's surprise Numpy is great at handling big arrays quickly, and the first plot illustrates that very well.
-While the execution time of lists is skyrocketing Numpy holds its ground and barely nudges from its straight track. A truly magnificent sight. 
+While the execution time of lists is skyrocketing, Numpy holds its ground and barely nudges from its straight track. A truly magnificent sight. 
 
 ![](images/low_pixel_count.png?raw=true)
 
@@ -20,9 +20,9 @@ A different story is told in the second plot, though. When the game deals with v
 the advantages of Numpy are overshadowed by its overhead. Here simple Python lists and newbie coding win against Numpy. 
 
 
-To be honest before creating the Numpy version of the game engine I expected it to crush my java-ish implementation of 
-snake game with Python lists. And trust me was I disappointed to find that my new work was in fact slower. But after 
-putting on the data scientist mask and analyzing the differences between game engines I was a tiny bit less bummed out 
+To be honest, before creating the Numpy version of the game engine I expected it to crush my java-ish implementation of 
+snake game with Python lists. And trust me was I disappointed to find that my new work was, in fact, slower. But after 
+putting on the data scientist mask and analyzing the differences between the two game engines I was a tiny bit less bummed out 
 about the whole situation - apparently my new implementation is pretty good. Just not in my use case...
 
 # Chapter 2: The Model
