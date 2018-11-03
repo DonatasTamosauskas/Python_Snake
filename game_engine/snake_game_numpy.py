@@ -19,12 +19,15 @@ class SnakeGameNumpy(BaseGame):
         self.score = 0
         self.game_is_over = False
         self.last_move = 2
+
         self.frame = self.__create_game_field(self.x, self.y, self.border_number)
         self.snake = self.__create_snake(self.x, self.y, self.init_snake_length)
+        self.food = self.__spawn_food(self.x, self.y)
 
     def get_frame(self):
         """Method return array of how the current game board looks."""
-        return self.__add_snake_to_frame(self.frame, self.snake, self.snake_number)
+        frame = self.__add_food_to_frame(self.frame, self.food, self.food_number)
+        return self.__add_snake_to_frame(frame, self.snake, self.snake_number)
 
     def get_score(self):
         """Method returns the current score of the game."""
@@ -42,10 +45,9 @@ class SnakeGameNumpy(BaseGame):
             self.snake = self.__move_snake(self.snake, move)
             self.last_move = move
 
-        self.game_is_over = self.__snake_has_died(self.snake, self.x, self.y)
-
     def is_over(self):
         """Method returns boolean whether game is currently lost."""
+        self.game_is_over = self.__snake_has_died(self.snake, self.x, self.y)
         return self.game_is_over
 
     def is_won(self):
@@ -67,8 +69,10 @@ class SnakeGameNumpy(BaseGame):
         return game_field
 
     @staticmethod
-    def __create_snake(x, y, initial_snake_length):
-        return np.array([[x//2 + i, y//2] for i in range(initial_snake_length)])
+    def __add_food_to_frame(frame, food, food_number):
+        new_frame = np.array(frame)
+        new_frame[food[0], food[1]] = food_number
+        return new_frame
 
     @staticmethod
     def __add_snake_to_frame(frame, snake, snake_number):
@@ -77,6 +81,10 @@ class SnakeGameNumpy(BaseGame):
         for block in snake:
             new_frame[block[0], block[1]] = snake_number
         return new_frame
+
+    @staticmethod
+    def __create_snake(x, y, initial_snake_length):
+        return np.array([[x//2 + i, y//2] for i in range(initial_snake_length)])
 
     @staticmethod
     def __move_changes_direction(previous_move, move):
@@ -118,5 +126,13 @@ class SnakeGameNumpy(BaseGame):
         if np.unique(snake, axis=0, return_counts=True)[1].max() > 1:
             return True
         return False
+
+    @staticmethod
+    def __spawn_food(x, y):
+        if x == y:
+            return np.random.randint(low=1, high=(x - 1), size=(2))
+        else:
+            return np.array([np.random.randint(1, x - 1), np.random.randint(1,  y - 1)])
+
 
 
