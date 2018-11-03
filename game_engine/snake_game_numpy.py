@@ -93,7 +93,7 @@ class SnakeGameNumpy(BaseGame):
 
     @staticmethod
     def __create_snake(x, y, initial_snake_length):
-        return np.array([[x//2 + i, y//2] for i in range(initial_snake_length)])
+        return np.array([[x//2, y//2 + i] for i in range(initial_snake_length)])
 
     @staticmethod
     def __move_changes_direction(previous_move, move):
