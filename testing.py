@@ -1,6 +1,7 @@
 from game_engine.snake_functions_old import Game
 from game_engine.snake_game_numpy import SnakeGameNumpy
-from graphics.pygame_graphics import PygameGraphics
+from game_engine.speed_testing import SpeedTest
+# from graphics.pygame_graphics import PygameGraphics
 
 x = 10
 y = 10
@@ -33,9 +34,12 @@ def human_play(game, graphics):
 
 
 if __name__ == "__main__":
-    # print(SpeedTest.snake_old_function_speed())
     snake_numpy = SnakeGameNumpy(x, y, init_snake_length, snake_number, food_number, border_number)
     snake_old = Game(x, y, init_snake_length, snake_number, food_number, border_number)
-    graphics = PygameGraphics(x, y, snake_number, food_number, border_number, framerate=5)
 
-    human_play(snake_numpy, graphics)
+    # print(SpeedTest.snake_old_function_speed())
+    print(SpeedTest.snake_game_numpy_speed())
+
+    # graphics = PygameGraphics(x, y, snake_number, food_number, border_number, framerate=5)
+
+    # human_play(snake_numpy, graphics)
