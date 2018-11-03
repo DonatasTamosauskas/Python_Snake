@@ -26,8 +26,9 @@ class SpeedTest:
         plt.plot(new_results.values(), label="Numpy game engine")
 
         plt.xlabel("Size of game board in pixels")
-        plt.ylabel("Average time (s) per random game")
+        plt.ylabel("Time (s) to play {} games".format(loop_times))
         plt.title("Old snake game vs new engine speed")
+        plt.legend()
         plt.show()
 
     def compare_different_game_engines(self, max_x=50, step=2, loop_times=1000):
