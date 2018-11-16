@@ -35,7 +35,7 @@ def main():
     model.add(Dense(4))  # actions number
     model.compile(RMSprop(), 'MSE')
 
-    model.load_weights('ModelWeights/my_weights.dat')
+    model.load_weights('models/weights/my_weights.dat')
 
     game = Game(x, y, init_snake_length, snake_number, food_number, border_number)
     agent = Agent(model=model, memory_size=-1, nb_frames=4)
