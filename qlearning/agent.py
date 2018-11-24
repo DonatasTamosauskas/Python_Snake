@@ -75,7 +75,7 @@ class Agent:
 
         model = self.model
         nb_actions = model.output_shape[-1]
-        win_count = 0
+        max_score = 0
 
         for epoch in range(nb_epoch):
             loss = 0.
@@ -135,17 +135,17 @@ class Agent:
                 if checkpoint and ((epoch + 1 - observe) % checkpoint == 0 or epoch + 1 == nb_epoch):
                     model.save_weights('my_weights.dat')
 
-            # another call to game object
-            if game.is_won():
-                win_count += 1
+            if game.get_score() < max_score:
+                max_score = game.get_score()
+
             if epsilon > final_epsilon and epoch >= observe:
                 epsilon -= delta
-            print("Epoch {:03d}/{:03d} | Loss {:.4f} | Epsilon {:.2f} | Win count {}".format(epoch + 1, nb_epoch, loss,
-                                                                                             epsilon, win_count))
+            print("Epoch {:03d}/{:03d} | Loss {:.4f} | Epsilon {:.2f} | Max score {}".format(epoch + 1, nb_epoch, loss,
+                                                                                             epsilon, max_score))
 
     def play_graphics(self, game, graphics, nb_epoch=10, nb_loops=50):
         model = self.model
-        win_count = 0
+        max_score = 0
 
         for epoch in range(nb_epoch):
             game.reset()
@@ -158,7 +158,7 @@ class Agent:
             while not game_over and loop_protect < nb_loops:
                 q = model.predict(S)
                 a = int(np.argmax(q[0]))
-                print("The action: {}".format(a))
+                # print("The action: {}".format(a))
                 graphics.display_frame(game.get_frame())
                 r = game.get_score()
                 game.play(a)
@@ -171,7 +171,8 @@ class Agent:
                 S = self.get_game_data(game)
                 game_over = game.is_over()
 
-            if game.is_won():
-                win_count += 1
-            print("Epoch {:03d}/{:03d} | Win count {}".format(epoch + 1, nb_epoch, win_count))
+            if max_score < r1:
+                max_score = r1
+
+            print("Epoch {:03d}/{:03d} | Max score {}".format(epoch + 1, nb_epoch, max_score))
 

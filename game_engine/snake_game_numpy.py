@@ -17,7 +17,7 @@ class SnakeGameNumpy(BaseGame):
         self.food_number = food_number
         self.score_increment = score_increment
 
-        self.nb_actions = 5
+        self.nb_actions = 4  # can be 5
         self.score = 0
         self.game_is_over = False
         self.last_move = 2

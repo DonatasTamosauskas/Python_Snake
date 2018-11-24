@@ -1,4 +1,5 @@
 from game_engine.snake_functions_old import Game
+from game_engine.snake_game_numpy import SnakeGameNumpy
 from graphics.pygame_graphics import PygameGraphics
 from qlearning.agent import Agent
 from models.initial_model import InitialModel
@@ -25,7 +26,7 @@ def main():
     initial_model_architecture = InitialModel()
     model = initial_model_architecture.get_model()
 
-    game = Game(x, y, init_snake_length, snake_number, food_number, border_number)
+    game = SnakeGameNumpy(x, y, init_snake_length, snake_number, food_number, border_number)
     agent = Agent(model=model, memory_size=-1, nb_frames=4)
 
     # Modes: display - True, training - False.
@@ -34,7 +35,7 @@ def main():
         agent.play_graphics(game, graphics, nb_epoch=10, nb_loops=60)
     else:
         # TODO: Add dynamic weights file naming and saving
-        agent.train(game, batch_size=64, nb_epoch=10, gamma=0.8, observe=0, checkpoint=None)
+        agent.train(game, batch_size=64, nb_epoch=20, gamma=0.8, observe=0, checkpoint=None)
 
 
 if __name__ == "__main__":
