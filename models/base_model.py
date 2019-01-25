@@ -9,6 +9,11 @@ class BaseModel:
         :param number_of_actions: Number of actions possible to make in the game
         :param load_weights: Boolean should the weights be loaded from a previous run
         """
+        self.x = x
+        self.y = y
+        self.number_of_actions = number_of_actions
+        self.number_of_frames = number_of_frames
+        self.load_weights = load_weights
         pass
 
     def get_model(self):
@@ -17,3 +22,8 @@ class BaseModel:
         :return: Created Keras model
         """
         pass
+
+    def get_weights_filename(self, appendix=''):
+        filename = 'x{}y{}f{}a{}{}.dat'\
+            .format(self.x, self.y, self.number_of_frames, self.number_of_actions, appendix)
+        return filename

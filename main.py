@@ -23,11 +23,11 @@ def human_play(game, graphics):
 
 def main():
 
-    initial_model_architecture = InitialModel()
+    initial_model_architecture = InitialModel(number_of_frames=7)
     model = initial_model_architecture.get_model()
 
     game = SnakeGameNumpy(x, y, init_snake_length, snake_number, food_number, border_number)
-    agent = Agent(model=model, memory_size=-1, nb_frames=4)
+    agent = Agent(model=model, memory_size=-1, nb_frames=7)
 
     # Modes: display - True, training - False.
     if True:

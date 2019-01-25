@@ -1,6 +1,7 @@
 from keras.models import Sequential
 from keras.layers import *
 from keras.optimizers import *
+import os
 
 from models.base_model import BaseModel
 
@@ -17,12 +18,13 @@ class InitialModel(BaseModel):
         self.border_number = border
         self.snake_number = snake
         self.food_number = food
+        self.weights_file_path = 'models/weights/initial_model/'
 
         self.__build_model()
         self.__compile_model()
 
         if load_weights:
-            self.__load_weights()
+            self.__load_weights(appendix='_kaggle_10000')
 
     def get_model(self):
         return self.model
@@ -43,7 +45,13 @@ class InitialModel(BaseModel):
     def __compile_model(self):
         self.model.compile(RMSprop(), 'MSE')
 
-    def __load_weights(self):
-        # TODO: Check if weights file exists
-        self.model.load_weights('models/weights/initial_model/x{}y{}f{}a{}.dat'
-                                .format(self.x, self.y, self.number_of_frames, self.number_of_actions))
+    def __load_weights(self, appendix=''):
+        available_filenames = os.listdir(self.weights_file_path)
+        filename = self.get_weights_filename(appendix=appendix)
+
+        if filename in available_filenames:
+            self.model.load_weights(self.weights_file_path + filename)
+            #'/x10y10f7a4.dat'
+        else:
+            print('No weights file ({}) found in {} directory. Weights not loaded')\
+                .fromat(filename, self.weights_file_path)
