@@ -27,4 +27,14 @@ about the whole situation - apparently my new implementation is pretty good. Jus
 
 # Chapter 2: The Model
 
-Coming to a cinema near you this year. (Maybe next)
+The model, as of this point, has yet to be firmly decided on. The current version is a simple convolutional neural network 
+taking the current game state and some previous frames as an input and producing an output of next frame's movement direction. 
+The model is based on the q-learning reinforcement paper. Model itself can be improved once the data acquisition pipeline 
+has been developed further, but as of now it is a prototype showing that the idea is plausible.
+
+
+Example of current trained model at work:
+![](images/gameplay/gameplay_0.gif)
+
+To be continued...
+  

@@ -9,7 +9,7 @@ black = (0, 0, 0)
 class PygameGraphics:
 
     def __init__(self, x, y, snake_number, food_number, border_number
-                 , resolution=(480, 480), framerate=5):
+                 , resolution=(480, 480), framerate=5, save_gameplay=False):
         pg.init()
         self.x = x
         self.y = y
@@ -20,6 +20,8 @@ class PygameGraphics:
         self.size_y = resolution[1] // y
         self.resolution = resolution
         self.framerate = framerate
+        self.save_gameplay = save_gameplay
+        self.gameplay_frame = 0
 
         pg.display.set_caption("Neural_Snake")
         self.game_display = pg.display.set_mode(self.resolution)
@@ -39,6 +41,11 @@ class PygameGraphics:
 
         pg.event.get()
         pg.display.update()
+
+        if self.save_gameplay:
+            pg.image.save(pg.display.get_surface(), "images/gameplay/gameplay_{}.jpeg".format(self.gameplay_frame))
+            self.gameplay_frame += 1
+
         self.clock.tick(self.framerate)
 
     def read_input(self, previous):
