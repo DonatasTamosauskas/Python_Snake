@@ -34,7 +34,7 @@ has been developed further, but as of now it is a prototype showing that the ide
 
 
 Example of current trained model at work:
-![](images/gameplay/gameplay_0.gif)
+![](images/gameplay/gameplay_0.gif?raw=true)
 
 To be continued...
   
