@@ -144,6 +144,7 @@ class TensorlayerAgent():
         qnet = CNN('q', self.in_dim, self.out_dim)
         tl.files.load_and_assign_npz(name=ROOT_PATH/SAVE_PATH/"25200.npz", network=qnet)
         qnet.eval()
+        t = time.time()
 
         plt.spy(self.env.get_frame())
         plt.ion()
