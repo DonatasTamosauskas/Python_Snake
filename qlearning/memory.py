@@ -2,7 +2,8 @@
 
 import numpy as np
 from random import sample
-from keras import backend as K
+import tensorflow as tf
+from tensorflow.keras import backend as K
 
 
 class ExperienceReplay:

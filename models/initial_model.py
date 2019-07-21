@@ -1,6 +1,6 @@
-from keras.models import Sequential
-from keras.layers import *
-from keras.optimizers import *
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import *
+from tensorflow.keras.optimizers import *
 import os
 
 from models.base_model import BaseModel
