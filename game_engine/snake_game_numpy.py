@@ -21,6 +21,7 @@ class SnakeGameNumpy(BaseGame):
         self.score = 0
         self.game_is_over = False
         self.last_move = 2
+        self.game_episode = 0
 
         self.frame = self.__create_game_field(self.x, self.y, self.border_number)
         self.snake = self.__create_snake(self.x, self.y, self.init_snake_length)
@@ -35,12 +36,18 @@ class SnakeGameNumpy(BaseGame):
         """Method returns the current score of the game."""
         return self.score
 
+    def get_episode(self):
+        """Method returns the episode (move number) in the current game"""
+        return self.game_episode
+
     def play(self, move):
         """Method takes move integer as a parameter and advances the game state using that move.
             Available moves:   3
                              2 4 0
                                1
         """
+        self.game_episode += 1
+
         if self.__move_changes_direction(self.last_move, move):
             self.snake = self.__move_and_grow_snake_when_needed(self.snake, self.food, move)
             self.last_move = move
@@ -61,12 +68,15 @@ class SnakeGameNumpy(BaseGame):
         pass
 
     def reset(self):
-        """Method ends the current game and starts a new one."""
+        """Method ends the current game and starts a new one. Returns game field."""
         self.score = 0
         self.game_is_over = False
         self.last_move = 2
+        self.game_episode = 0
         self.snake = self.__create_snake(self.x, self.y, self.init_snake_length)
         self.food = self.__spawn_food(self.x, self.y)
+
+        return self.get_frame()
 
     @staticmethod
     def __create_game_field(x, y, border_number):
