@@ -54,6 +54,7 @@ class TensorlayerAgent():
 
         o = np.expand_dims(self.env.reset(), axis=2)
         nepisode = 0
+        max_reward = 0
         t = time.time()
         noise_scale = 1e-2
         for i in range(1, number_timesteps + 1):
@@ -127,8 +128,7 @@ class TensorlayerAgent():
                 o = o_
 
             # episode in info is real (unwrapped) message
-            if info.get('episode'):
-                max_reward = 0
+            if info.get('episode') and (i % 100 == 0):
                 nepisode += 1
                 reward, length = info['episode']['r'], info['episode']['l']
                 if max_reward < reward: max_reward = reward
@@ -145,6 +145,7 @@ class TensorlayerAgent():
         tl.files.load_and_assign_npz(name=ROOT_PATH/SAVE_PATH/"25200.npz", network=qnet)
         qnet.eval()
         t = time.time()
+        max_reward = 0
 
         plt.spy(self.env.get_frame())
         plt.ion()
@@ -181,7 +182,6 @@ class TensorlayerAgent():
 
             # episode in info is real (unwrapped) message
             if info.get('episode'):
-                max_reward = 0
                 nepisode += 1
                 reward, length = info['episode']['r'], info['episode']['l']
                 if max_reward < reward: max_reward = reward
