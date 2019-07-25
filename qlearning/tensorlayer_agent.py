@@ -12,7 +12,7 @@ import tensorlayer as tl
 # from tutorial_wrappers import build_env
 
 ROOT_PATH = Path("") #Path("/Users/donatastamosauskas/Projects/Python_Snake/")
-SAVE_PATH = Path("/users/donatastamosauskas/Projects/Python_Snake/saved")
+SAVE_PATH = Path("./saved")
 RANDOM_SEED = 1
 
 # ####################  hyper parameters  ####################
@@ -24,10 +24,10 @@ epsilon = lambda i_iter: 1 - 0.99 * min(1, i_iter / explore_timesteps)
 lr = 1e-4  # learning rate
 buffer_size = 10000  # replay buffer size
 target_q_update_freq = 200  # how frequency target q net update
-ob_scale = 1.0 / 255  # scale observations
+ob_scale = 1.0   # scale observations
 
 reward_gamma = 0.99  # reward discount
-batch_size = 32  # batch size for sampling from replay buffer
+batch_size = 512  # batch size for sampling from replay buffer
 warm_start = buffer_size / 10  # sample times befor learning
 noise_update_freq = 50  # how frequency param noise net update
 
